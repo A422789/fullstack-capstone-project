@@ -9,20 +9,27 @@ let dbInstance = null;
 const dbName = "giftdb";
 
 async function connectToDatabase() {
-    if (dbInstance){
+    if (dbInstance) {
         return dbInstance
     };
 
-    const client = new MongoClient(url);      
+    const client = new MongoClient(url);
 
     // Task 1: Connect to MongoDB
-    // {{insert code}}
 
+    await client.connect(url)
     // Task 2: Connect to database giftDB and store in variable dbInstance
-    //{{insert code}}
 
+    console.log("Connected successfully to MongoDB");
+    dbInstance = client.db(dbName);
     // Task 3: Return database instance
-    // {{insert code}}
+
+    return dbInstance;
+
+
+
+
+
 }
 
 module.exports = connectToDatabase;
