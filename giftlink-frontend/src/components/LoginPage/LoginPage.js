@@ -7,7 +7,7 @@ import './LoginPage.css';
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [showerr, setShowerr] = useState('');
+    const [incorrect, setIncorrect] = useState('');
 
     const navigate = useNavigate();
     const bearerToken = sessionStorage.getItem('bearer-token');
@@ -41,9 +41,9 @@ function LoginPage() {
                 setIsLoggedIn(true);
                 navigate('/app');
             } else {
-                document.getElementById("email").value = "";
-                document.getElementById("password").value = "";
-                setShowerr(json.error);
+                setEmail('');
+                setPassword('');
+                setIncorrect(json.error);
             }
         } catch (e) {
             console.log("Error fetching details: " + e.message);
@@ -78,7 +78,7 @@ function LoginPage() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
-                        <div className="text-danger">{showerr}</div>
+                        <div className="text-danger">{incorrect}</div>
                         <button className="btn btn-primary w-100 mb-3" onClick={handleLogin}>Login</button>
                         <p className="mt-4 text-center">
                             New here? <a href="/app/register" className="text-primary">Register Here</a>

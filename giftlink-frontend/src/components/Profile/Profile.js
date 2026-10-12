@@ -9,6 +9,7 @@ const Profile = () => {
  const [updatedDetails, setUpdatedDetails] = useState({});
  const {setUserName} = useAppContext();
  const [changed, setChanged] = useState("");
+ const [error, setError] = useState("");
 
  const [editMode, setEditMode] = useState(false);
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ setUpdatedDetails({
 };
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setError("");
 
   try {
     const authtoken = sessionStorage.getItem("auth-token");
@@ -98,7 +100,8 @@ const handleSubmit = async (e) => {
     }
   } catch (error) {
     console.error(error);
-    // Handle error case
+    // Display error message to the user
+    setError(error.message);
   }
 };
 
@@ -126,6 +129,7 @@ return (
 </label>
 
 <button type="submit">Save</button>
+<span style={{color:'red',display:'block',fontSize:'12px'}}>{error}</span>
 </form>
 ) : (
 <div className="profile-details">
